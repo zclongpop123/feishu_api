@@ -38,3 +38,33 @@ class FeishuAPI(object):
 
         except Exception as e:
             return {"error": e}
+
+
+
+
+    def get_departments(self):
+        '''
+        '''
+        try:
+            res = requests.get('https://open.feishu.cn/open-apis/contact/v1/department/simple/list?department_id=0&page_size=10&fetch_child=true', headers=self.headers)
+            if res.status_code == 200:
+                res_json = res.json()
+                return res_json
+
+        except Exception as e:
+            return {"error": e}
+
+
+
+
+    def get_department_users(self, open_dept_id):
+        '''
+        '''
+        try:
+            res = requests.get('https://open.feishu.cn/open-apis/contact/v1/department/user/list?open_department_id={0}&page_size=100&fetch_child=true'.format(open_dept_id), headers=self.headers)
+            if res.status_code == 200:
+                res_json = res.json()
+                return res_json
+
+        except Exception as e:
+            return {"error": e}        
