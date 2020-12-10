@@ -42,11 +42,19 @@ class FeishuAPI(object):
 
 
 
-    def get_departments(self):
+    def get_departments(self, department_id=0, page_size=10, page_token=None, fetch_child=False):
         '''
         '''
+        base_url = 'https://open.feishu.cn/open-apis/contact/v1/department/simple/list?department_id={0}&page_size={1}'.format(department_id, page_size)
+        if page_token:
+            base_url = '{0}&page_token={1}'.format(base_url, page_token)
+        if fetch_child:
+            base_url = '{0}&fetch_child=true'.format(base_url, fetch_child)
+        else:
+            base_url = '{0}&fetch_child=false'.format(base_url, fetch_child)
+
         try:
-            res = requests.get('https://open.feishu.cn/open-apis/contact/v1/department/simple/list?department_id=0&page_size=10&fetch_child=true', headers=self.headers)
+            res = requests.get(base_url, headers=self.headers)
             if res.status_code == 200:
                 res_json = res.json()
                 return res_json
@@ -57,11 +65,27 @@ class FeishuAPI(object):
 
 
 
-    def get_department_users(self, open_dept_id):
+    def get_sub_departments(self, department_id=0, page_size=10, page_token=None, fetch_child=False):
         '''
         '''
+        return self.get_departments(department_id, page_size, page_token, fetch_child)
+
+
+
+
+    def get_department_members(self, department_id=0, page_size=10, page_token=None, fetch_child=False):
+        '''
+        '''
+        base_url = 'https://open.feishu.cn/open-apis/contact/v1/department/user/list?department_id={0}&page_size={1}'.format(department_id, page_size)
+        if page_token:
+            base_url = '{0}&page_token={1}'.format(base_url, page_token)
+        if fetch_child:
+            base_url = '{0}&fetch_child=true'.format(base_url, fetch_child)
+        else:
+            base_url = '{0}&fetch_child=false'.format(base_url, fetch_child)
+        
         try:
-            res = requests.get('https://open.feishu.cn/open-apis/contact/v1/department/user/list?open_department_id={0}&page_size=100&fetch_child=true'.format(open_dept_id), headers=self.headers)
+            res = requests.get(base_url, headers=self.headers)
             if res.status_code == 200:
                 res_json = res.json()
                 return res_json
