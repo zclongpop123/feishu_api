@@ -1,8 +1,10 @@
+# coding: utf-8
 #========================================
 #    author: Changlong.Zang
 #      mail: zclongpop123@163.com
 #      time: Wed Dec  9 09:59:22 2020
 #========================================
+import json
 import requests
 #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 class FeishuAPI(object):
@@ -83,7 +85,7 @@ class FeishuAPI(object):
             base_url = '{0}&fetch_child=true'.format(base_url, fetch_child)
         else:
             base_url = '{0}&fetch_child=false'.format(base_url, fetch_child)
-        
+
         try:
             res = requests.get(base_url, headers=self.headers)
             if res.status_code == 200:
@@ -92,3 +94,26 @@ class FeishuAPI(object):
 
         except Exception as e:
             return {"error": e}        
+
+
+
+    def send_text_msg(self, _id, text):
+        '''
+        '''
+        base_url = 'https://open.feishu.cn/open-apis/message/v4/send/'
+        data = {
+            'open_id' : _id,
+            'msg_type': 'text',
+            'content' : {
+                'text': text
+            }
+        }
+        try:
+            res = requests.post(base_url, headers=self.headers, data=json.dumps(data))
+            if res.status_code == 200:
+                res_json = res.json()
+                return res_json
+            print res.status_code
+
+        except Exception as e:
+            return {"error": e}
