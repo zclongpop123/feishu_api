@@ -113,7 +113,12 @@ class FeishuAPI(object):
             if res.status_code == 200:
                 res_json = res.json()
                 return res_json
-            print res.status_code
 
         except Exception as e:
             return {"error": e}
+
+
+
+if __name__ == '__main__':
+    clinet = FeishuAPI('cli_9ebf914621719107', 'sxpN98Eou4GHDVPw43qMBcTr8hpO2TIv')
+    # print clinet.send_text_msg('ou_3aa56d86532b54c6cc4b5dc3697472cc', 'text...')
