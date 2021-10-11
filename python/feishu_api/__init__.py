@@ -120,5 +120,5 @@ class FeishuAPI(object):
 
 
 if __name__ == '__main__':
-    clinet = FeishuAPI('cli_9ebf914621719107', 'sxpN98Eou4GHDVPw43qMBcTr8hpO2TIv')
-    # print clinet.send_text_msg('ou_3aa56d86532b54c6cc4b5dc3697472cc', 'text...')
+    clinet = FeishuAPI('cli_9ebf914621719107', 'sxpN98Eou4GxxxxxxxxxxxxBcTr8hpO2TIv')
+    # print clinet.send_text_msg('ou_3aa56d8xxxxxxxxxxxxxx5dc3697472cc', 'text...')
